@@ -18,7 +18,7 @@ class Movie extends Component {
         this.state = {
             details:{
                 review: '',
-                rating: 0
+                rating: 5
             }
         };
     }
