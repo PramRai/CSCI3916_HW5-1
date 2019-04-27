@@ -26,7 +26,7 @@ class Movie extends Component {
     componentDidMount() {
         const {dispatch} = this.props;
         if (this.props.selectedMovie == null)
-            dispatch(fetchMovie(this.props.movieId));
+            dispatch(fetchMovie(this.props.movieid));
     }
 
     updateDetails(event){
@@ -42,9 +42,9 @@ class Movie extends Component {
         const env = runtimeEnv();
 
         var json = {
-            Review: this.state.details.review,
-            Rating: this.state.details.rating,
-            Movie_ID: this.props.movieId
+            review: this.state.details.review,
+            rating: this.state.details.rating,
+            movieid: this.props.movieid
         };
 
         return fetch(`${env.REACT_APP_API_URL}/review`, {
@@ -78,11 +78,11 @@ class Movie extends Component {
             );
         };
 
-        const ReviewInfo = ({reviews}) => {
-            return reviews.map((review, i) =>
+        const ReviewInfo = ({review}) => {
+            return review.map((review1, i) =>
                 <p key={i}>
-                <b>{review.username}</b> {review.review}
-                    <Glyphicon glyph={'star'} /> {review.rating}
+                <b>{review1.name}</b> {review1.review}
+                    <Glyphicon glyph={'star'} /> {review1.rating}
                 </p>
             );
         }
@@ -100,7 +100,7 @@ class Movie extends Component {
                         <ListGroupItem><ActorInfo actors={currentMovie.actors} /></ListGroupItem>
                         <ListGroupItem><h4><Glyphicon glyph={'star'} /> {currentMovie.averageRating} </h4></ListGroupItem>
                     </ListGroup>
-                    <Panel.Body><ReviewInfo reviews={currentMovie.Reviews} /></Panel.Body>
+                    <Panel.Body><ReviewInfo review={currentMovie.Reviews} /></Panel.Body>
                 </Panel>
             );
         };
@@ -145,7 +145,7 @@ const mapStateToProps = (state, ownProps) => {
     console.log(ownProps);
     return {
         selectedMovie: state.movie.selectedMovie,
-        movieId: ownProps.match.params.movieId
+        movieid: ownProps.match.params.movieid
     }
 }
 
